@@ -384,7 +384,11 @@ const TimelineSection = () => {
 
     const calculatePosition = (index, total) => {
         const angle = ((index / total) * 360 + rotationAngle) % 360;
-        const radius = 160; // Orbit radius
+
+        // Dynamic radius for mobile responsiveness
+        const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+        const radius = isMobile ? 120 : 160;
+
         const radian = (angle * Math.PI) / 180;
         const x = radius * Math.cos(radian);
         const y = radius * Math.sin(radian);
@@ -608,7 +612,7 @@ const projectsData = [
         icon: Coffee,
         gradient: 'from-amber-600 to-yellow-500',
         link: 'https://github.com/shoukat-khan/Cafe-managment-system',
-        image: 'public/images/cafe-management.png'
+        image: '/images/cafe-management.png'
     },
     {
         title: 'Kubernetes CI/CD Pipeline',
@@ -961,23 +965,44 @@ const ContactSection = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
 
-        // Create mailto link with form data
-        const mailtoLink = `mailto:shoukatkhang71@gmail.com?subject=${encodeURIComponent(formData.subject || 'Portfolio Contact')}&body=${encodeURIComponent(
-            `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
-        )}`;
+        const ACCESS_KEY = "YOUR_WEB3FORMS_ACCESS_KEY_HERE"; // User needs to insert their key here
 
-        window.location.href = mailtoLink;
+        try {
+            const response = await fetch("https://api.web3forms.com/submit", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                },
+                body: JSON.stringify({
+                    access_key: ACCESS_KEY,
+                    name: formData.name,
+                    email: formData.email,
+                    subject: formData.subject || "Portfolio Contact",
+                    message: formData.message,
+                    from_name: "Portfolio Contact Form",
+                }),
+            });
 
-        setTimeout(() => {
+            const result = await response.json();
+
+            if (result.success) {
+                setSubmitted(true);
+                setFormData({ name: '', email: '', subject: '', message: '' });
+                setTimeout(() => setSubmitted(false), 5000);
+            } else {
+                alert("Something went wrong. Please try again or email me directly.");
+            }
+        } catch (error) {
+            console.error("Email Error:", error);
+            alert("Connection error. Please check your internet or try again later.");
+        } finally {
             setIsSubmitting(false);
-            setSubmitted(true);
-            setFormData({ name: '', email: '', subject: '', message: '' });
-            setTimeout(() => setSubmitted(false), 5000);
-        }, 1000);
+        }
     };
 
     return (
