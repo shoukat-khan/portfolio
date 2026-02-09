@@ -1168,6 +1168,11 @@ const AIChatbot = () => {
                 body: JSON.stringify({ message: userMessage })
             });
 
+            if (!response.ok) {
+                const text = await response.text();
+                throw new Error(`Server error: ${response.status} ${response.statusText}. ${text.slice(0, 100)}`);
+            }
+
             const data = await response.json();
 
             if (data.error) throw new Error(data.error);
@@ -1175,9 +1180,16 @@ const AIChatbot = () => {
             setMessages(prev => [...prev, { role: 'assistant', content: data.response }]);
         } catch (error) {
             console.error('Chatbot Error:', error);
+
+            let errorMessage = "Sorry, I'm having trouble connecting. Please try again or contact Shoukat directly at shoukatkhang71@gmail.com";
+
+            if (error.message.includes('Unexpected end of JSON input') || error.message.includes('404')) {
+                errorMessage = "Local Development Note: The chatbot needs 'vercel dev' to run. It will work perfectly once deployed to Vercel!";
+            }
+
             setMessages(prev => [...prev, {
                 role: 'assistant',
-                content: "Sorry, I'm having trouble connecting. Please try again or contact Shoukat directly at shoukatkhang71@gmail.com"
+                content: errorMessage
             }]);
         } finally {
             setIsTyping(false);
