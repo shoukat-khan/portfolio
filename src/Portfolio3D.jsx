@@ -972,7 +972,7 @@ const ContactSection = () => {
         // IMPORTANT: Replace this with your own key from https://web3forms.com/
         const ACCESS_KEY = "60c9420a-d283-499d-8430-3d6c98e37bf6";
 
-        if (ACCESS_KEY === "60c9420a-d283-499d-8430-3d6c98e37bf6") {
+        if (ACCESS_KEY === "YOUR_WEB3FORMS_ACCESS_KEY_HERE") {
             alert("Please add your Web3Forms Access Key in src/Portfolio3D.jsx (around line 972) to enable the contact form.");
             setIsSubmitting(false);
             return;
