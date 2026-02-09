@@ -254,14 +254,14 @@ const HeroSection = () => (
                 <Sparkles className="w-4 h-4 text-cyan-400" />
                 <span className="text-sm text-cyan-300">Available for opportunities</span>
             </motion.div>
-            <motion.h1 initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4, duration: 0.8 }} className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6">
+            <motion.h1 initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4, duration: 0.8 }} className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6">
                 <span className="text-white">Shoukat</span>{' '}
                 <span className="bg-gradient-to-r from-cyan-400 via-cyan-300 to-purple-400 bg-clip-text text-transparent">Khan</span>
             </motion.h1>
-            <motion.p initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }} className="text-xl md:text-2xl text-slate-300 mb-4">
+            <motion.p initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }} className="text-lg md:text-2xl text-slate-300 mb-4">
                 Software Engineer <span className="text-slate-600">|</span> Full Stack & AI Specialist
             </motion.p>
-            <motion.p initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8 }} className="text-base md:text-lg text-slate-500 max-w-2xl mx-auto mb-8">
+            <motion.p initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8 }} className="text-sm md:text-lg text-slate-500 max-w-2xl mx-auto mb-8 px-4 sm:px-0">
                 "Final-year Software Engineering student at FAST-NUCES. Merging scalable backend architectures with intelligent computer vision and secure real-time systems."
             </motion.p>
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1 }} className="flex items-center justify-center gap-2 text-slate-500 mb-10">
@@ -416,20 +416,19 @@ const TimelineSection = () => {
                 </motion.div>
 
                 {/* Orbital Container */}
-                <div className="relative h-[500px] flex items-center justify-center" onClick={handleBackgroundClick}>
+                <div className="relative h-[400px] md:h-[500px] flex items-center justify-center overflow-hidden" onClick={handleBackgroundClick}>
 
                     {/* Center Core */}
-                    <div className="absolute w-20 h-20 rounded-full bg-gradient-to-br from-cyan-500 via-purple-500 to-amber-500 flex items-center justify-center z-20 shadow-lg shadow-cyan-500/30">
-                        <div className="absolute w-24 h-24 rounded-full border border-cyan-500/30 animate-ping opacity-30" />
-                        <div className="absolute w-28 h-28 rounded-full border border-purple-500/20 animate-ping opacity-20" style={{ animationDelay: '0.5s' }} />
-                        <div className="w-12 h-12 rounded-full bg-slate-950/80 backdrop-blur-sm flex items-center justify-center">
-                            <Sparkles className="w-6 h-6 text-cyan-400" />
+                    <div className="absolute w-16 h-16 md:w-20 md:h-20 rounded-full bg-gradient-to-br from-cyan-500 via-purple-500 to-amber-500 flex items-center justify-center z-20 shadow-lg shadow-cyan-500/30">
+                        <div className="absolute w-20 h-20 md:w-24 md:h-24 rounded-full border border-cyan-500/30 animate-ping opacity-30" />
+                        <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-slate-950/80 backdrop-blur-sm flex items-center justify-center">
+                            <Sparkles className="w-5 h-5 md:w-6 md:h-6 text-cyan-400" />
                         </div>
                     </div>
 
                     {/* Orbit Ring */}
-                    <div className="absolute w-80 h-80 rounded-full border border-slate-700/50" />
-                    <div className="absolute w-80 h-80 rounded-full border border-cyan-500/10" style={{ transform: 'rotate(45deg)' }} />
+                    <div className="absolute w-64 h-64 md:w-80 md:h-80 rounded-full border border-slate-700/50" />
+                    <div className="absolute w-64 h-64 md:w-80 md:h-80 rounded-full border border-cyan-500/10" style={{ transform: 'rotate(45deg)' }} />
 
                     {/* Orbital Nodes */}
                     {timelineData.map((item, index) => {
@@ -1251,9 +1250,9 @@ const AIChatbot = () => {
                     initial={{ opacity: 0, y: 20, scale: 0.9 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 20, scale: 0.9 }}
-                    className="fixed bottom-24 right-6 z-50 w-80 sm:w-96 h-[500px] rounded-2xl bg-slate-900/95 backdrop-blur-xl border border-slate-700/50 shadow-2xl shadow-black/50 flex flex-col overflow-hidden"
+                    className="fixed bottom-24 right-4 left-4 sm:left-auto sm:right-6 z-50 sm:w-96 h-[500px] max-h-[70vh] sm:max-h-[600px] rounded-2xl bg-slate-900/95 backdrop-blur-xl border border-slate-700/50 shadow-2xl shadow-black/50 flex flex-col overflow-hidden"
                 >
-                    <div className="p-4 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 border-b border-slate-700/50">
+                    <div className="p-4 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 border-b border-slate-700/50 flex items-center justify-between">
                         <div className="flex items-center gap-3">
                             <div className="w-10 h-10 rounded-full bg-gradient-to-r from-cyan-500 to-purple-500 flex items-center justify-center">
                                 <Bot className="w-5 h-5 text-white" />
@@ -1265,6 +1264,9 @@ const AIChatbot = () => {
                                 </p>
                             </div>
                         </div>
+                        <button onClick={() => setIsOpen(false)} className="sm:hidden p-2 text-slate-400 hover:text-white">
+                            <X size={20} />
+                        </button>
                     </div>
 
                     <div className="flex-1 overflow-y-auto p-4 space-y-4">
