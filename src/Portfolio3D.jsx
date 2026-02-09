@@ -969,7 +969,14 @@ const ContactSection = () => {
         e.preventDefault();
         setIsSubmitting(true);
 
-        const ACCESS_KEY = "YOUR_WEB3FORMS_ACCESS_KEY_HERE"; // User needs to insert their key here
+        // IMPORTANT: Replace this with your own key from https://web3forms.com/
+        const ACCESS_KEY = "60c9420a-d283-499d-8430-3d6c98e37bf6";
+
+        if (ACCESS_KEY === "60c9420a-d283-499d-8430-3d6c98e37bf6") {
+            alert("Please add your Web3Forms Access Key in src/Portfolio3D.jsx (around line 972) to enable the contact form.");
+            setIsSubmitting(false);
+            return;
+        }
 
         try {
             const response = await fetch("https://api.web3forms.com/submit", {
@@ -984,7 +991,6 @@ const ContactSection = () => {
                     email: formData.email,
                     subject: formData.subject || "Portfolio Contact",
                     message: formData.message,
-                    from_name: "Portfolio Contact Form",
                 }),
             });
 
@@ -995,11 +1001,12 @@ const ContactSection = () => {
                 setFormData({ name: '', email: '', subject: '', message: '' });
                 setTimeout(() => setSubmitted(false), 5000);
             } else {
-                alert("Something went wrong. Please try again or email me directly.");
+                console.error("Web3Forms Error:", result);
+                alert(`Error: ${result.message || "Something went wrong."}`);
             }
         } catch (error) {
-            console.error("Email Error:", error);
-            alert("Connection error. Please check your internet or try again later.");
+            console.error("Connection Error:", error);
+            alert("Failed to send message. Please check your internet connection.");
         } finally {
             setIsSubmitting(false);
         }
